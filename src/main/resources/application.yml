@@ -1,0 +1,30 @@
+server:
+  context-path: /Post
+  port: 8886
+  jsp-servlet:
+    init-parameters:
+      development: true
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/postproject?characterEncoding=utf-8&mysqlEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+    multipart:
+      max-file-size: 100MB
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  aop:
+    proxy-target-class: true
+
+mybatis:
+  mapper-locations: mapper/*Mapper.xml
+  type-aliases-package: com.baizhi.entity

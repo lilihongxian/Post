@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.BannerMapper" >
+  <resultMap id="BaseResultMap" type="com.baizhi.entity.Banner" >
+    <id column="banner_id" property="bannerId" jdbcType="VARCHAR" />
+    <result column="banner_picName" property="bannerPicname" jdbcType="VARCHAR" />
+    <result column="banner_picPath" property="bannerPicpath" jdbcType="VARCHAR" />
+    <result column="banner_description" property="bannerDescription" jdbcType="VARCHAR" />
+    <result column="banner_status" property="bannerStatus" jdbcType="VARCHAR" />
+    <result column="banner_creattime" property="bannerCreattime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    banner_id, banner_picName, banner_picPath, banner_description, banner_status, banner_creattime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from banner
+    where banner_id = #{bannerId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="splitpage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from banner
+      limit #{page},#{rows}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from banner
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from banner
+    where banner_id = #{bannerId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.baizhi.entity.Banner" >
+    insert into banner (banner_id, banner_picName, banner_picPath, 
+      banner_description, banner_status, banner_creattime
+      )
+    values (#{bannerId,jdbcType=VARCHAR}, #{bannerPicname,jdbcType=VARCHAR}, #{bannerPicpath,jdbcType=VARCHAR}, 
+      #{bannerDescription,jdbcType=VARCHAR}, #{bannerStatus,jdbcType=VARCHAR}, CURRENT_TIMESTAMP
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.baizhi.entity.Banner" >
+    insert into banner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bannerId != null" >
+        banner_id,
+      </if>
+      <if test="bannerPicname != null" >
+        banner_picName,
+      </if>
+      <if test="bannerPicpath != null" >
+        banner_picPath,
+      </if>
+      <if test="bannerDescription != null" >
+        banner_description,
+      </if>
+      <if test="bannerStatus != null" >
+        banner_status,
+      </if>
+      <if test="bannerCreattime != null" >
+        banner_creattime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bannerId != null" >
+        #{bannerId,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerPicname != null" >
+        #{bannerPicname,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerPicpath != null" >
+        #{bannerPicpath,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerDescription != null" >
+        #{bannerDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerStatus != null" >
+        #{bannerStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerCreattime != null" >
+        #{bannerCreattime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baizhi.entity.Banner" >
+    update banner
+    <set >
+      <if test="bannerPicname != null" >
+        banner_picName = #{bannerPicname,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerPicpath != null" >
+        banner_picPath = #{bannerPicpath,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerDescription != null" >
+        banner_description = #{bannerDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerStatus != null" >
+        banner_status = #{bannerStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerCreattime != null" >
+        banner_creattime = #{bannerCreattime,jdbcType=DATE},
+      </if>
+    </set>
+    where banner_id = #{bannerId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baizhi.entity.Banner" >
+    update banner
+    set banner_picName = #{bannerPicname,jdbcType=VARCHAR},
+      banner_picPath = #{bannerPicpath,jdbcType=VARCHAR},
+      banner_description = #{bannerDescription,jdbcType=VARCHAR},
+      banner_status = #{bannerStatus,jdbcType=VARCHAR},
+      banner_creattime = #{bannerCreattime,jdbcType=DATE}
+    where banner_id = #{bannerId,jdbcType=VARCHAR}
+  </update>
+  <update id="update" >
+    update banner
+    set
+      banner_description = #{bannerDescription,jdbcType=VARCHAR},
+      banner_status = #{bannerStatus,jdbcType=VARCHAR}
+    where banner_id = #{bannerId,jdbcType=VARCHAR}
+  </update>
+</mapper>

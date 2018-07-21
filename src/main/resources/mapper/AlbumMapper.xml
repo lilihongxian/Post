@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AlbumMapper" >
+  <resultMap id="BaseResultMap" type="com.baizhi.entity.Album" >
+    <id column="album_id" property="albumId" jdbcType="VARCHAR" />
+    <result column="album_title" property="albumTitle" jdbcType="VARCHAR" />
+    <result column="album_score" property="albumScore" jdbcType="DOUBLE" />
+    <result column="album_brodecast" property="albumBrodecast" jdbcType="VARCHAR" />
+    <result column="album_author" property="albumAuthor" jdbcType="VARCHAR" />
+    <result column="album_description" property="albumDescription" jdbcType="VARCHAR" />
+    <result column="album_publishtime" property="albumPublishtime" jdbcType="DATE" />
+    <result column="album_count" property="albumCount" jdbcType="INTEGER" />
+    <result column="album_coverimg" property="albumCoverimg" jdbcType="VARCHAR" />
+    <result column="album_status" property="albumStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    album_id, album_title, album_score, album_brodecast, album_author, album_description, 
+    album_publishtime, album_count, album_coverimg, album_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from album
+    where album_id = #{albumId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from album
+    where album_id = #{albumId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.baizhi.entity.Album" >
+    insert into album (album_id, album_title, album_score, 
+      album_brodecast, album_author, album_description, 
+      album_publishtime, album_count, album_coverimg, 
+      album_status)
+    values (#{albumId,jdbcType=VARCHAR}, #{albumTitle,jdbcType=VARCHAR}, #{albumScore,jdbcType=DOUBLE}, 
+      #{albumBrodecast,jdbcType=VARCHAR}, #{albumAuthor,jdbcType=VARCHAR}, #{albumDescription,jdbcType=VARCHAR}, 
+      #{albumPublishtime,jdbcType=DATE}, #{albumCount,jdbcType=INTEGER}, #{albumCoverimg,jdbcType=VARCHAR}, 
+      #{albumStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.baizhi.entity.Album" >
+    insert into album
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="albumId != null" >
+        album_id,
+      </if>
+      <if test="albumTitle != null" >
+        album_title,
+      </if>
+      <if test="albumScore != null" >
+        album_score,
+      </if>
+      <if test="albumBrodecast != null" >
+        album_brodecast,
+      </if>
+      <if test="albumAuthor != null" >
+        album_author,
+      </if>
+      <if test="albumDescription != null" >
+        album_description,
+      </if>
+      <if test="albumPublishtime != null" >
+        album_publishtime,
+      </if>
+      <if test="albumCount != null" >
+        album_count,
+      </if>
+      <if test="albumCoverimg != null" >
+        album_coverimg,
+      </if>
+      <if test="albumStatus != null" >
+        album_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="albumId != null" >
+        #{albumId,jdbcType=VARCHAR},
+      </if>
+      <if test="albumTitle != null" >
+        #{albumTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="albumScore != null" >
+        #{albumScore,jdbcType=DOUBLE},
+      </if>
+      <if test="albumBrodecast != null" >
+        #{albumBrodecast,jdbcType=VARCHAR},
+      </if>
+      <if test="albumAuthor != null" >
+        #{albumAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="albumDescription != null" >
+        #{albumDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="albumPublishtime != null" >
+        #{albumPublishtime,jdbcType=DATE},
+      </if>
+      <if test="albumCount != null" >
+        #{albumCount,jdbcType=INTEGER},
+      </if>
+      <if test="albumCoverimg != null" >
+        #{albumCoverimg,jdbcType=VARCHAR},
+      </if>
+      <if test="albumStatus != null" >
+        #{albumStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baizhi.entity.Album" >
+    update album
+    <set >
+      <if test="albumTitle != null" >
+        album_title = #{albumTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="albumScore != null" >
+        album_score = #{albumScore,jdbcType=DOUBLE},
+      </if>
+      <if test="albumBrodecast != null" >
+        album_brodecast = #{albumBrodecast,jdbcType=VARCHAR},
+      </if>
+      <if test="albumAuthor != null" >
+        album_author = #{albumAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="albumDescription != null" >
+        album_description = #{albumDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="albumPublishtime != null" >
+        album_publishtime = #{albumPublishtime,jdbcType=DATE},
+      </if>
+      <if test="albumCount != null" >
+        album_count = #{albumCount,jdbcType=INTEGER},
+      </if>
+      <if test="albumCoverimg != null" >
+        album_coverimg = #{albumCoverimg,jdbcType=VARCHAR},
+      </if>
+      <if test="albumStatus != null" >
+        album_status = #{albumStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where album_id = #{albumId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baizhi.entity.Album" >
+    update album
+    set album_title = #{albumTitle,jdbcType=VARCHAR},
+      album_score = #{albumScore,jdbcType=DOUBLE},
+      album_brodecast = #{albumBrodecast,jdbcType=VARCHAR},
+      album_author = #{albumAuthor,jdbcType=VARCHAR},
+      album_description = #{albumDescription,jdbcType=VARCHAR},
+      album_publishtime = #{albumPublishtime,jdbcType=DATE},
+      album_count = #{albumCount,jdbcType=INTEGER},
+      album_coverimg = #{albumCoverimg,jdbcType=VARCHAR},
+      album_status = #{albumStatus,jdbcType=VARCHAR}
+    where album_id = #{albumId,jdbcType=VARCHAR}
+  </update>
+</mapper>

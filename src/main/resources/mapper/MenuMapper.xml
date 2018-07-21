@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.baizhi.entity.Menu" >
+    <id column="menu_id" property="menuId" jdbcType="VARCHAR" />
+    <result column="menu_title" property="menuTitle" jdbcType="VARCHAR" />
+    <result column="menu_href" property="menuHref" jdbcType="VARCHAR" />
+    <result column="menu_iconcls" property="menuIconcls" jdbcType="VARCHAR" />
+    <result column="menu_parentid" property="menuParentid" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="RealMap" type="com.baizhi.entity.Menu">
+    <id column="pid" jdbcType="VARCHAR" property="menuId" />
+    <result column="ptitle" jdbcType="VARCHAR" property="menuTitle" />
+    <result column="phref" jdbcType="VARCHAR" property="menuHref" />
+    <result column="picon" jdbcType="VARCHAR" property="menuIconcls" />
+    <collection property="children" ofType="com.baizhi.entity.Menu">
+      <id column="cid" jdbcType="VARCHAR" property="menuId" />
+      <result column="ctitle" jdbcType="VARCHAR" property="menuTitle" />
+      <result column="chref" jdbcType="VARCHAR" property="menuHref" />
+      <result column="cicon" jdbcType="VARCHAR" property="menuIconcls" />
+      <result column="cpid" jdbcType="VARCHAR" property="menuParentid" />
+    </collection>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    menu_id, menu_title, menu_href, menu_iconcls, menu_parentid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from menu
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAll" resultMap="RealMap">
+    SELECT p.menu_id pid, p.menu_title ptitle, p.menu_href phref, p.menu_iconcls picon,
+    c.menu_id cid, c.menu_title ctitle, c.menu_href chref, c.menu_iconcls cicon, c.menu_parentid cpid
+    from menu p join menu c on p.menu_id=c.menu_parentid
+
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from menu
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.baizhi.entity.Menu" >
+    insert into menu (menu_id, menu_title, menu_href, 
+      menu_iconcls, menu_parentid)
+    values (#{menuId,jdbcType=VARCHAR}, #{menuTitle,jdbcType=VARCHAR}, #{menuHref,jdbcType=VARCHAR}, 
+      #{menuIconcls,jdbcType=VARCHAR}, #{menuParentid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.baizhi.entity.Menu" >
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="menuTitle != null" >
+        menu_title,
+      </if>
+      <if test="menuHref != null" >
+        menu_href,
+      </if>
+      <if test="menuIconcls != null" >
+        menu_iconcls,
+      </if>
+      <if test="menuParentid != null" >
+        menu_parentid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuTitle != null" >
+        #{menuTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="menuHref != null" >
+        #{menuHref,jdbcType=VARCHAR},
+      </if>
+      <if test="menuIconcls != null" >
+        #{menuIconcls,jdbcType=VARCHAR},
+      </if>
+      <if test="menuParentid != null" >
+        #{menuParentid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baizhi.entity.Menu" >
+    update menu
+    <set >
+      <if test="menuTitle != null" >
+        menu_title = #{menuTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="menuHref != null" >
+        menu_href = #{menuHref,jdbcType=VARCHAR},
+      </if>
+      <if test="menuIconcls != null" >
+        menu_iconcls = #{menuIconcls,jdbcType=VARCHAR},
+      </if>
+      <if test="menuParentid != null" >
+        menu_parentid = #{menuParentid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baizhi.entity.Menu" >
+    update menu
+    set menu_title = #{menuTitle,jdbcType=VARCHAR},
+      menu_href = #{menuHref,jdbcType=VARCHAR},
+      menu_iconcls = #{menuIconcls,jdbcType=VARCHAR},
+      menu_parentid = #{menuParentid,jdbcType=VARCHAR}
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </update>
+</mapper>

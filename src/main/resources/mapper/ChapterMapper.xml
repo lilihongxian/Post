@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ChapterMapper" >
+  <resultMap id="BaseResultMap" type="com.baizhi.entity.Chapter" >
+    <id column="chp_id" property="chpId" jdbcType="VARCHAR" />
+    <result column="chp_name" property="chpName" jdbcType="VARCHAR" />
+    <result column="chp_url" property="chpUrl" jdbcType="VARCHAR" />
+    <result column="chp_size" property="chpSize" jdbcType="VARCHAR" />
+    <result column="chp_times" property="chpTimes" jdbcType="VARCHAR" />
+    <result column="chp_creatTime" property="chpCreattime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    chp_id, chp_name, chp_url, chp_size, chp_times, chp_creatTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from chapter
+    where chp_id = #{chpId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from chapter
+    where chp_id = #{chpId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.baizhi.entity.Chapter" >
+    insert into chapter (chp_id, chp_name, chp_url, 
+      chp_size, chp_times, chp_creatTime
+      )
+    values (#{chpId,jdbcType=VARCHAR}, #{chpName,jdbcType=VARCHAR}, #{chpUrl,jdbcType=VARCHAR}, 
+      #{chpSize,jdbcType=VARCHAR}, #{chpTimes,jdbcType=VARCHAR}, #{chpCreattime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.baizhi.entity.Chapter" >
+    insert into chapter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="chpId != null" >
+        chp_id,
+      </if>
+      <if test="chpName != null" >
+        chp_name,
+      </if>
+      <if test="chpUrl != null" >
+        chp_url,
+      </if>
+      <if test="chpSize != null" >
+        chp_size,
+      </if>
+      <if test="chpTimes != null" >
+        chp_times,
+      </if>
+      <if test="chpCreattime != null" >
+        chp_creatTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="chpId != null" >
+        #{chpId,jdbcType=VARCHAR},
+      </if>
+      <if test="chpName != null" >
+        #{chpName,jdbcType=VARCHAR},
+      </if>
+      <if test="chpUrl != null" >
+        #{chpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="chpSize != null" >
+        #{chpSize,jdbcType=VARCHAR},
+      </if>
+      <if test="chpTimes != null" >
+        #{chpTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="chpCreattime != null" >
+        #{chpCreattime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baizhi.entity.Chapter" >
+    update chapter
+    <set >
+      <if test="chpName != null" >
+        chp_name = #{chpName,jdbcType=VARCHAR},
+      </if>
+      <if test="chpUrl != null" >
+        chp_url = #{chpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="chpSize != null" >
+        chp_size = #{chpSize,jdbcType=VARCHAR},
+      </if>
+      <if test="chpTimes != null" >
+        chp_times = #{chpTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="chpCreattime != null" >
+        chp_creatTime = #{chpCreattime,jdbcType=DATE},
+      </if>
+    </set>
+    where chp_id = #{chpId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baizhi.entity.Chapter" >
+    update chapter
+    set chp_name = #{chpName,jdbcType=VARCHAR},
+      chp_url = #{chpUrl,jdbcType=VARCHAR},
+      chp_size = #{chpSize,jdbcType=VARCHAR},
+      chp_times = #{chpTimes,jdbcType=VARCHAR},
+      chp_creatTime = #{chpCreattime,jdbcType=DATE}
+    where chp_id = #{chpId,jdbcType=VARCHAR}
+  </update>
+</mapper>
