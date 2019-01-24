@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class BannerServiceImpl implements BannerService{
+public class BannerServiceImpl implements BannerService<Banner>{
 
     @Autowired
     private BannerMapper bannerMapper;

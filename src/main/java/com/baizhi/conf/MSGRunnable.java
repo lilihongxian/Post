@@ -21,7 +21,6 @@ public class MSGRunnable extends Thread {
                 String s = jsonObject.toJSONString();
                 goEasy.publish("lxtchannel", s);
             }
-
         }
 
 

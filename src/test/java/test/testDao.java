@@ -21,6 +21,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * Created by admin on 2018/7/5.
@@ -121,6 +124,24 @@ public class testDao {
         }
         for (User user : list) {
             System.out.println(user);
+        }
+    }
+    @Test
+    public void testSingle() {
+        /*SingletonDemo singletonDemo = SingletonDemo.INSTANCE;
+        singletonDemo.otherMethods();*/
+
+        HashMap hashMap = new HashMap();
+        Set set = hashMap.entrySet();
+        for (Object o : set) {
+            System.out.println(o.toString());
+        }
+    }
+
+    enum SingletonDemo{
+        INSTANCE;
+        public void otherMethods(){
+            System.out.println("Something");
         }
     }
 }

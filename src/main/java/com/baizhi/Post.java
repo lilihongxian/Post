@@ -13,6 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @MapperScan("com.baizhi.dao")
 public class Post {
     public static void main(String[] args) {
-        SpringApplication.run(Post.class,args);
+        SpringApplication.run(Post.class, args);
     }
 }
